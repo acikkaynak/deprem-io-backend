@@ -3,7 +3,7 @@ const NodeCache = require("node-cache");
 let cacheInstance;
 
 module.exports = {
-  createCacheInstance: function (callback) {
+  createCacheInstance: function () {
     if (!cacheInstance) {
       cacheInstance = new NodeCache();
       console.log("cache instance created");
@@ -11,6 +11,11 @@ module.exports = {
   },
 
   getCache: function () {
+    // needed this if check for integration tests
+    if (!cacheInstance) {
+      this.createCacheInstance();
+    }
+
     return cacheInstance;
   },
 };
