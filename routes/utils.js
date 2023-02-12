@@ -8,6 +8,14 @@ async function checkConnection(fastifyInstance) {
   }
 }
 
+async function validateModel(model) {
+  let validationSonuc = await model.validate()
+  if (validationSonuc?.errors) {
+    throw new Error(validationSonuc.message);
+  }
+}
+
 module.exports = {
   checkConnection,
+  validateModel
 };

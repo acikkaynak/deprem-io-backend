@@ -1,4 +1,4 @@
-const { checkConnection } = require("../utils");
+const { checkConnection, validateModel} = require("../utils");
 const Iletisim = require("../../models/iletisimModel");
 const check = new (require("../../lib/Check"))();
 
@@ -52,6 +52,15 @@ module.exports = async function (fastifyInstance) {
         mesaj: req.body.mesaj || "",
         ip: req.ip,
       });
+
+      try {
+        await validateModel(newIletisim);
+      } catch (e) {
+        res.statusCode = 400;
+        return {
+          error: e.message,
+        };
+      }
 
       await newIletisim.save();
       return { message: "İletişim talebiniz başarıyla alındı" };

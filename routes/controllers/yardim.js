@@ -1,5 +1,5 @@
 const check = new (require("../../lib/Check"))();
-const { checkConnection } = require("../utils");
+const { checkConnection, validateModel} = require("../utils");
 const Yardim = require("../../models/yardimModel");
 const YardimKaydi = require("../../models/yardimKaydiModel");
 
@@ -193,6 +193,15 @@ module.exports = async function (fastifyInstance) {
         ip: req.ip,
         fields: fields || {},
       });
+
+      try {
+        await validateModel(newYardim);
+      } catch (e) {
+        res.statusCode = 400;
+        return {
+          error: e.message,
+        };
+      }
 
       fastifyInstance.selectiveFlush(LIST_PREFIX);
 
