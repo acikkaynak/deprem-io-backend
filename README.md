@@ -159,6 +159,18 @@ fields: {
 Opsiyonel her türlü yardım isteme ve yardımEt kısmına eklenecek özellikler için
 fields alanını kullanın isteidğiniz gibi json objesi post edebilirsiniz
 
+## Local Email Saglayici Ayari
+
+Export E-Mail ozelligi icin email saglayicinin API key degerini .env dosyasina girmeniz gerekmektedir.
+
+Ayrica email atilmasi istediginiz hesaplari (coklu ise virgul ile ayirarak) asagidaki gibi tanimlayiniz.
+
+e.g.
+```.env
+EMAIL_PROVIDER_API_KEY="EXAMPLEAPIKEY"
+EXPORT_EMAILS="email@example.com"
+```
+
 ## Cache i temizleme
 
 /cache/flushall
@@ -219,6 +231,11 @@ istenen yardımların altında form var süreci takip etmek için yardimKaydi ol
 - exportYardimEtCsv.js
   `node scripts/exportYardimEtCsv.js`
   YardimEt datasını csv export eder
+- exportVeMail.js
+  `node scripts/exportVeMail.js modelIsmi islem=islemAdi (dosyaKonumu)`
+  Modelleri CSV olarak export etmek ve/veya CSV exportlari static email listelerine gondermek icin kullanılır.
+  modelIsmi e.g. YardimEt
+  islemAdi mail, export veya print olabilir. export durumunda yazilmasi istenilen local dosya konumu verilmelidir
 
 
 ## Supply chain security
